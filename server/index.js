@@ -7,7 +7,7 @@ const io = new Server({
   },
 });
 
-io.listen(3001);
+io.listen(3000);
 
 // PATHFINDING UTILS
 
