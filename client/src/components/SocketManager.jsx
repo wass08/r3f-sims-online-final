@@ -21,7 +21,6 @@ export const SocketManager = () => {
   const [_rooms, setRooms] = useAtom(roomsAtom);
 
   useEffect(() => {
-    console.log("items", items);
     if (!items) {
       return;
     }
