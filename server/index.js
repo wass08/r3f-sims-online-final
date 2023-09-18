@@ -108,14 +108,14 @@ io.on("connection", (socket) => {
   let room = null;
   let character = null;
 
-  socket.emit(
-    "rooms",
-    rooms.map((room) => ({
+  socket.emit("welcome", {
+    rooms: rooms.map((room) => ({
       id: room.id,
       name: room.name,
       nbCharacters: room.characters.length,
-    }))
-  );
+    })),
+    items,
+  });
 
   socket.on("joinRoom", (roomId, opts) => {
     room = rooms.find((room) => room.id === roomId);
@@ -131,7 +131,7 @@ io.on("connection", (socket) => {
     };
     room.characters.push(character);
 
-    socket.emit("hello", {
+    socket.emit("roomJoined", {
       map: {
         gridDivision: room.gridDivision,
         size: room.size,
@@ -139,7 +139,6 @@ io.on("connection", (socket) => {
       },
       characters: room.characters,
       id: socket.id,
-      items,
     });
     onRoomUpdate();
   });
