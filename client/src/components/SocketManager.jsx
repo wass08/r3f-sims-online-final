@@ -2,7 +2,9 @@ import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-export const socket = io(import.meta.env.SERVER_URL || "http://localhost:3000");
+export const socket = io(
+  import.meta.env.VITE_SERVER_URL || "http://localhost:3000"
+);
 export const charactersAtom = atom([]);
 export const mapAtom = atom(null);
 export const userAtom = atom(null);
