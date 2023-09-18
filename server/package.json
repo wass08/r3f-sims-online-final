@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "pm2 start index.js --name server",
+    "stop": "pm2 stop server"
+  },
+  "dependencies": {
+    "pathfinding": "^0.4.18",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "pm2": "^5.3.0"
+  }
+}
