@@ -4,7 +4,12 @@ import { ScrollControls, useProgress } from "@react-three/drei";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Experience } from "./components/Experience";
-import { SocketManager, roomIDAtom } from "./components/SocketManager";
+import { Loader } from "./components/Loader";
+import {
+  SocketManager,
+  itemsAtom,
+  roomIDAtom,
+} from "./components/SocketManager";
 import { UI } from "./components/UI";
 
 function App() {
@@ -12,9 +17,10 @@ function App() {
 
   const { progress } = useProgress();
   const [loaded, setLoaded] = useState(false);
+  const [items] = useAtom(itemsAtom);
 
   useEffect(() => {
-    if (progress === 100) {
+    if (progress === 100 && items) {
       setLoaded(true); // As progress can go back to 0 when new resources are loaded, we need to make sure we don't fade out the UI when that happens
     }
   }, [progress]);
@@ -33,10 +39,12 @@ function App() {
           <Experience loaded={loaded} />
         </ScrollControls>
 
+        {/* Impact badly performances without a noticeable good result */}
         {/* <EffectComposer>
           <N8AO intensity={0.42} />
         </EffectComposer> */}
       </Canvas>
+      <Loader />
       {loaded && <UI />}
     </>
   );

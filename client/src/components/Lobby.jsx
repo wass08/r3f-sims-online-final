@@ -10,7 +10,7 @@ import { useAtom } from "jotai";
 import { Suspense, useMemo, useRef } from "react";
 import { LobbyAvatar } from "./LobbyAvatar";
 import { Skyscraper } from "./Skyscraper";
-import { roomIDAtom, roomsAtom, socket } from "./SocketManager";
+import { mapAtom, roomIDAtom, roomsAtom, socket } from "./SocketManager";
 import { Tablet } from "./Tablet";
 import { avatarUrlAtom } from "./UI";
 let firstLoad = true;
@@ -18,10 +18,12 @@ export const Lobby = () => {
   const [rooms] = useAtom(roomsAtom);
   const [avatarUrl] = useAtom(avatarUrlAtom);
   const [_roomID, setRoomID] = useAtom(roomIDAtom);
+  const [_map, setMap] = useAtom(mapAtom);
   const joinRoom = (roomId) => {
     socket.emit("joinRoom", roomId, {
       avatarUrl,
     });
+    setMap(null);
     setRoomID(roomId);
   };
 

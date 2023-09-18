@@ -1,3 +1,4 @@
+import { useGLTF } from "@react-three/drei";
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
@@ -16,8 +17,18 @@ export const SocketManager = () => {
   const [_characters, setCharacters] = useAtom(charactersAtom);
   const [_map, setMap] = useAtom(mapAtom);
   const [_user, setUser] = useAtom(userAtom);
-  const [_items, setItems] = useAtom(itemsAtom);
+  const [items, setItems] = useAtom(itemsAtom);
   const [_rooms, setRooms] = useAtom(roomsAtom);
+
+  useEffect(() => {
+    console.log("items", items);
+    if (!items) {
+      return;
+    }
+    Object.values(items).forEach((item) => {
+      useGLTF.preload(`/models/items/${item.name}.glb`);
+    });
+  }, [items]);
   useEffect(() => {
     function onConnect() {
       console.log("connected");
@@ -26,14 +37,14 @@ export const SocketManager = () => {
       console.log("disconnected");
     }
 
-    function onRooms(value) {
-      setRooms(value);
+    function onWelcome(value) {
+      setRooms(value.rooms);
+      setItems(value.items);
     }
 
-    function onHello(value) {
+    function onRoomJoined(value) {
       setMap(value.map);
       setUser(value.id);
-      setItems(value.items);
       setCharacters(value.characters);
     }
 
@@ -48,15 +59,15 @@ export const SocketManager = () => {
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("rooms", onRooms);
-    socket.on("hello", onHello);
+    socket.on("roomJoined", onRoomJoined);
+    socket.on("welcome", onWelcome);
     socket.on("characters", onCharacters);
     socket.on("mapUpdate", onMapUpdate);
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("rooms", onRooms);
-      socket.off("hello", onHello);
+      socket.off("roomJoined", onRoomJoined);
+      socket.off("welcome", onWelcome);
       socket.off("characters", onCharacters);
       socket.off("mapUpdate", onMapUpdate);
     };
