@@ -44,7 +44,7 @@ function App() {
           <N8AO intensity={0.42} />
         </EffectComposer> */}
       </Canvas>
-      <Loader />
+      <Loader loaded={loaded} />
       {loaded && <UI />}
     </>
   );
