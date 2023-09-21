@@ -71,7 +71,8 @@ export const Lobby = () => {
         position-z={0.5}
         initial={{
           y: firstLoad ? 0.5 : 1.5,
-          rotateY: isMobile ? 0 : Math.PI / 8,
+          // rotateY: isMobile ? 0 : Math.PI / 8,
+          // removed because of safari issue with transform enabled on HTML
         }}
         animate={{
           y: isMobile ? 1.65 : 1.5,
@@ -85,7 +86,7 @@ export const Lobby = () => {
         }}
       >
         <Tablet scale={0.03} rotation-x={Math.PI / 2} />
-        <Html position={[0, 0.17, 0.11]} transform scale={0.121}>
+        <Html position={[0, 0.17, 0.11]} center scale={0.121}>
           <div className="w-[390px] max-w-full h-[514px] overflow-y-auto p-5  place-items-center pointer-events-none select-none">
             <div className="w-full overflow-y-auto flex flex-col space-y-2">
               <h1 className="text-center text-white text-2xl font-bold">
