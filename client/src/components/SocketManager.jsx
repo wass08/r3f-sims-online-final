@@ -56,9 +56,14 @@ export const SocketManager = () => {
       setCharacters(value.characters);
     }
 
+    function onRooms(value) {
+      setRooms(value);
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("roomJoined", onRoomJoined);
+    socket.on("rooms", onRooms);
     socket.on("welcome", onWelcome);
     socket.on("characters", onCharacters);
     socket.on("mapUpdate", onMapUpdate);
@@ -66,6 +71,7 @@ export const SocketManager = () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("roomJoined", onRoomJoined);
+      socket.off("rooms", onRooms);
       socket.off("welcome", onWelcome);
       socket.off("characters", onCharacters);
       socket.off("mapUpdate", onMapUpdate);
