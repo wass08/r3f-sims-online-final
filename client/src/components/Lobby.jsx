@@ -27,7 +27,7 @@ export const Lobby = () => {
     setRoomID(roomId);
   };
 
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
 
   const tablet = useRef();
 
@@ -87,7 +87,7 @@ export const Lobby = () => {
       >
         <Tablet scale={0.03} rotation-x={Math.PI / 2} />
         <Html position={[0, 0.17, 0.11]} center scale={0.121}>
-          <div className="w-[390px] max-w-full h-[514px] overflow-y-auto p-5  place-items-center pointer-events-none select-none">
+          <div className="w-[310px] h-[416px] lg:w-[390px] max-w-full lg:h-[514px] overflow-y-auto p-5  place-items-center pointer-events-none select-none">
             <div className="w-full overflow-y-auto flex flex-col space-y-2">
               <h1 className="text-center text-white text-2xl font-bold">
                 WELCOME TO
