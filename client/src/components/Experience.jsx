@@ -99,13 +99,19 @@ export const Experience = ({ loaded }) => {
       </directionalLight>
       <CameraControls
         ref={controls}
+        // disable all mouse buttons
         mouseButtons={{
           left: 0,
           middle: 0,
           right: 0,
           wheel: 0,
         }}
-        // disable all mouse buttons
+        // disable all touch gestures
+        touches={{
+          one: 0,
+          two: 0,
+          three: 0,
+        }}
       />
       {roomID && map && <Room />}
       {loaded && !roomID && <Lobby />}

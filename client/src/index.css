@@ -7,6 +7,7 @@
 #root {
   width: 100vw;
   height: 100vh;
+  will-change: transform;
 }
 
 body {

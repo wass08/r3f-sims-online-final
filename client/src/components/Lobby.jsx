@@ -27,6 +27,8 @@ export const Lobby = () => {
     setRoomID(roomId);
   };
 
+  const isMobile = window.innerWidth < 768;
+
   const tablet = useRef();
 
   const goldenRatio = Math.min(1, window.innerWidth / 1600);
@@ -64,15 +66,15 @@ export const Lobby = () => {
     <group position-y={-1.5}>
       <motion.group
         ref={tablet}
-        scale={0.22}
-        position-x={-0.25 * goldenRatio}
+        scale={isMobile ? 0.18 : 0.22}
+        position-x={isMobile ? 0 : -0.25 * goldenRatio}
         position-z={0.5}
         initial={{
           y: firstLoad ? 0.5 : 1.5,
-          rotateY: Math.PI / 8,
+          rotateY: isMobile ? 0 : Math.PI / 8,
         }}
         animate={{
-          y: 1.5,
+          y: isMobile ? 1.65 : 1.5,
         }}
         transition={{
           duration: 1,
@@ -156,6 +158,7 @@ export const Lobby = () => {
         <LobbyAvatar
           position-z={-1}
           position-x={0.5 * goldenRatio}
+          position-y={isMobile ? -0.4 : 0}
           rotation-y={-Math.PI / 8}
         />
       </Suspense>
