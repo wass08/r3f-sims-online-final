@@ -61,6 +61,7 @@ export const Lobby = () => {
     ),
     []
   );
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent); // ugly safari fix as transform position is buggy on it
 
   return (
     <group position-y={-1.5}>
@@ -71,7 +72,7 @@ export const Lobby = () => {
         position-z={0.5}
         initial={{
           y: firstLoad ? 0.5 : 1.5,
-          // rotateY: isMobile ? 0 : Math.PI / 8,
+          rotateY: isSafari ? 0 : isMobile ? 0 : Math.PI / 8,
           // removed because of safari issue with transform enabled on HTML
         }}
         animate={{
@@ -86,8 +87,19 @@ export const Lobby = () => {
         }}
       >
         <Tablet scale={0.03} rotation-x={Math.PI / 2} />
-        <Html position={[0, 0.17, 0.11]} center scale={0.121}>
-          <div className="w-[310px] h-[416px] lg:w-[390px] max-w-full lg:h-[514px] overflow-y-auto p-5  place-items-center pointer-events-none select-none">
+        <Html
+          position={[0, 0.17, 0.11]}
+          transform={!isSafari}
+          center
+          scale={0.121}
+        >
+          <div
+            className={`${
+              isSafari
+                ? "w-[310px] h-[416px] lg:w-[390px] lg:h-[514px]"
+                : "w-[390px] h-[514px]"
+            }  max-w-full  overflow-y-auto p-5  place-items-center pointer-events-none select-none`}
+          >
             <div className="w-full overflow-y-auto flex flex-col space-y-2">
               <h1 className="text-center text-white text-2xl font-bold">
                 WELCOME TO
